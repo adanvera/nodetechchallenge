@@ -1,0 +1,25 @@
+{
+  "name": "nodetechchallenge",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon src/index.js",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "prisma:pull": "npx prisma db pull",
+    "prisma:generate": "npx prisma generate"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@apollo/server": "^4.11.3",
+    "@prisma/client": "^6.3.1",
+    "dotenv": "^16.4.7",
+    "gql": "^1.1.2",
+    "graphql": "^16.10.0",
+    "graphql-tag": "^2.12.6",
+    "nodemon": "^3.1.9",
+    "winston": "^3.17.0"
+  }
+}
