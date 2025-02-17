@@ -48,7 +48,6 @@ class CategoryDatasource extends RootDatasource {
     async categoryStats(pagination) {
         try {
             this.log.info('Starting function categoryStats()');
-
             const skipPage = ((step, take) => {
                 let offset;
                 if (step === 1) offset = step - 1;
@@ -72,21 +71,21 @@ class CategoryDatasource extends RootDatasource {
 
             // GETTING AGGREGATES FOR MATERIALS IN EACH CATEGORY 
             const materialsAggregates = await this.pgClient.materials.groupBy({
-                by: ['category_id'],
+                by: ['categoryId'],
                 _count: {
                     id: true,
                 },
                 _avg: {
-                    requested_unit_price: true,
+                    requestedUnitPrice: true,
                 },
                 _min: {
-                    requested_unit_price: true,
+                    requestedUnitPrice: true,
                 },
                 _max: {
-                    requested_unit_price: true,
+                    requestedUnitPrice: true,
                 },
                 where: {
-                    category_id: {
+                    categoryId: {
                         in: categoryIds,
                     },
                 },
@@ -95,19 +94,18 @@ class CategoryDatasource extends RootDatasource {
             // FORMAT THE DATA AND ADD IT TO THE CATEGORIES
             categories.forEach(category => {
                 const categoryAggregates = materialsAggregates.find(
-                    aggregate => aggregate.category_id === category.id
+                    aggregate => aggregate.categoryId === category.id
                 );
 
                 if (categoryAggregates) {
                     category.materialsCount = categoryAggregates._count.id;
-                    category.avgPrice = categoryAggregates._avg.requested_unit_price;
-                    category.minPrice = categoryAggregates._min.requested_unit_price;
-                    category.maxPrice = categoryAggregates._max.requested_unit_price;
+                    category.avgPrice = categoryAggregates._avg.requestedUnitPrice;
+                    category.minPrice = categoryAggregates._min.requestedUnitPrice;
+                    category.maxPrice = categoryAggregates._max.requestedUnitPrice;
                 }
             });
 
             return categories;
-
         } catch (error) {
             this.log.error('Error in function categoryStats()', error);
             throw new errors.DataSourceError(
@@ -120,8 +118,6 @@ class CategoryDatasource extends RootDatasource {
             this.log.info('Finishing function categoryStats()');
         }
     }
-
-
 }
 
 module.exports = CategoryDatasource;

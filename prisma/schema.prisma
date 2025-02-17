@@ -26,24 +26,24 @@ model manufacturers {
 }
 
 model materials {
-  id                   Int            @id @default(autoincrement())
-  name                 String         @db.VarChar(255)
-  description          String
-  long_description     String?
-  customer_part_id     String?
-  manufacturer_id      Int?
-  manufacturer_part_id String?
-  category_id          Int?
-  unit_of_measure      String?        @db.VarChar(50)
-  unit_quantity        Decimal?       @db.Decimal
-  requested_quantity   Decimal?       @db.Decimal
-  requested_unit_price Decimal?       @db.Decimal(10, 2)
-  competitor_name      String?        @db.VarChar(255)
-  competitor_part_name String?        @db.VarChar(255)
-  competitor_part_id   String?        @db.VarChar(100)
-  categories           categories?    @relation(fields: [category_id], references: [id], onUpdate: NoAction)
-  manufacturers        manufacturers? @relation(fields: [manufacturer_id], references: [id], onUpdate: NoAction)
+  id                 Int            @id @default(autoincrement())
+  name               String         @db.VarChar(255)
+  description        String
+  longDescription    String?        @map("long_description")
+  customerPartId     String?        @map("customer_part_id")
+  manufacturerId     Int?           @map("manufacturer_id")
+  manufacturerPartId String?        @map("manufacturer_part_id")
+  categoryId         Int?           @map("category_id")
+  unitOfMeasure      String?        @map("unit_of_measure") @db.VarChar(50)
+  unitQuantity       Decimal?       @map("unit_quantity") @db.Decimal
+  requestedQuantity  Decimal?       @map("requested_quantity") @db.Decimal
+  requestedUnitPrice Decimal?       @map("requested_unit_price") @db.Decimal(10, 2)
+  competitorName     String?        @map("competitor_name") @db.VarChar(255)
+  competitorPartName String?        @map("competitor_part_name") @db.VarChar(255)
+  competitorPartId   String?        @map("competitor_part_id") @db.VarChar(100)
+  categories         categories?    @relation(fields: [categoryId], references: [id], onUpdate: NoAction)
+  manufacturers      manufacturers? @relation(fields: [manufacturerId], references: [id], onUpdate: NoAction)
 
-  @@unique([name, manufacturer_part_id], map: "unique_material")
+  @@unique([name, manufacturerPartId], map: "unique_material")
   @@schema("store")
 }

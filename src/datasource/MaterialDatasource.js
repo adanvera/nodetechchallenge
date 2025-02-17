@@ -67,7 +67,7 @@ class MaterialDatasource extends RootDatasource {
                     ...materials.map(item => item.competitor_name).filter(Boolean)
                 ])
             ];
-            // GET CATEGORY
+            // GET UNIQUE CATEGORY
             const uniqueCategories = [...new Set(materials.map(item => item.category).filter(Boolean))];
 
             //VALIDATE MANUFACTURERS IN BULK
@@ -81,18 +81,18 @@ class MaterialDatasource extends RootDatasource {
                 return {
                     name: item.name,
                     description: item.description || "",
-                    long_description: item.long_description || "",
-                    customer_part_id: item.customer_part_id || "",
-                    manufacturer_id: manufacturer ? manufacturer.id : null,
-                    manufacturer_part_id: item.manufacturer_part_id || "",
-                    category_id: category ? category.id : null,
-                    unit_of_measure: item.unit_of_measure || "",
-                    unit_quantity: Number(item.unit_quantity) || 0,
-                    requested_quantity: Number(item.requested_quantity) || 0,
-                    requested_unit_price: Number(item.requested_unit_price) || 0,
-                    competitor_name: item.competitor_name || "",
-                    competitor_part_name: item.competitor_part_name || "",
-                    competitor_part_id: item.competitor_part_id || ""
+                    longDescription: item.long_description || "",
+                    customerPartId: item.customer_part_id || "",
+                    manufacturerId: manufacturer ? manufacturer.id : null,
+                    manufacturerPartId: item.manufacturer_part_id || "",
+                    categoryId: category ? category.id : null,
+                    unitOfMeasure: item.unit_of_measure || "",
+                    unitQuantity: Number(item.unit_quantity) || 0,
+                    requestedQuantity: Number(item.requested_quantity) || 0,
+                    requestedUnitPrice: Number(item.requested_unit_price) || 0,
+                    competitorName: item.competitor_name || "",
+                    competitorPartName: item.competitor_part_name || "",
+                    competitorPartId: item.competitor_part_id || ""
                 };
             });
 
@@ -113,7 +113,10 @@ class MaterialDatasource extends RootDatasource {
                 this.log.warn(`DUPLICATED SKIPPED MATERIALS: ${duplicateCount}`);
             }
 
-            return result
+            return {
+                totalInserted: insertedCount,
+                totalDuplicates: duplicateCount
+            }
         } catch (error) {
             this.log.error('Error in function createMaterial()', error);
             throw error;
@@ -193,16 +196,18 @@ class MaterialDatasource extends RootDatasource {
 
             this.log.debug('THERE ARE: ' + validData.length + ' VALID ITEMS IN THE FILE');
 
+            let totalInserted = 0;
+            let totalDuplicates = 0;
             // FUNCTION TO CREATE DATA IN BATCHES
-
             const createDataWithBatches = async (data, batchSize) => {
                 const batches = [];
-
                 for (let i = 0; i < data.length; i += batchSize) {
                     const batch = data.slice(i, i + batchSize); // CREATING BATCHES
                     batches.push(batch);
                     try {
-                        await this.createMaterialsFromCsv(batch, datasources);
+                        const result = await this.createMaterialsFromCsv(batch, datasources);
+                        totalInserted += result.totalInserted;
+                        totalDuplicates += result.totalDuplicates;
                         this.log.info(`Batch ${i / batchSize + 1} processed successfully`);
                     } catch (error) {
                         this.log.error(`Error processing batch ${i / batchSize + 1}:`, error);
@@ -218,8 +223,7 @@ class MaterialDatasource extends RootDatasource {
             this.log.debug('Processed: ' + batches.length + ' batches');
             this.log.info('Data processing completed successfully');
 
-            return 'Material list loaded successfully';
-
+            return `Data processing completed successfully. Total inserted: ${totalInserted.toLocaleString()}, total duplicates: ${totalDuplicates.toLocaleString()}.`;
         } catch (error) {
             this.log.error('Error in function readCsvMaterials()', error);
             throw new errors.DataSourceError(

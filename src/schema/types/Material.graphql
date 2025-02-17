@@ -1,0 +1,19 @@
+type Material{
+    id: ID        
+    name: String
+    description: String
+    longDescription: String       
+    customerPartId: String        
+    manufacturerId: ID           
+    manufacturerPartId: String        
+    categoryId: ID  
+    unitOfMeasure: String     
+    unitQuantity: Float            
+    requestedQuantity: Float       
+    requestedUnitPrice: Float       
+    competitorName: String       
+    competitorPartName: String        
+    competitorPartId: String        
+    categories: Category
+    manufacturers: Manufacturer
+}
