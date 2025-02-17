@@ -33,5 +33,5 @@ CREATE TABLE store.materials (
     competitor_name VARCHAR(255),  
     competitor_part_name VARCHAR(255),
     competitor_part_id VARCHAR(100),
-    CONSTRAINT unique_material UNIQUE (name, manufacturer_part_id)  -- Asegura que no haya duplicados en combinación de nombre y manufacturer_part_id
+    CONSTRAINT unique_material UNIQUE (name, manufacturer_part_id)  -- Ensure that there are no duplicates in the combination of name and manufacturer_part_id.
 );

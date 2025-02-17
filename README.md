@@ -9,7 +9,7 @@ Before running the project, make sure you have the following tools installed:
 - **Node.js** (v22.14.0)
 - **npm** to manage dependencies
 - Access to the necessary data sources for the project (Database credentials in `.env` file)
-- **PostgreSQL** database (Ensure the database is set up as per the provided `sql.sql` schema file)
+- **PostgreSQL** database (Ensure the database is created and set up as per the provided `sql.sql` schema file; the tables are already defined in the file).
 
 ### Installation
 
@@ -126,6 +126,9 @@ You can use the following mutation to load the material data from the CSV file i
 
 ### With Variables:
 
+    - take: Defines the number of records to return in each query.
+    - step: Defines the step or increment for pagination.
+
 ```json
 {
   "pagination": {
@@ -172,6 +175,9 @@ You can use the following mutation to load the material data from the CSV file i
 
 ### With Variables:
 
+    - take: Defines the number of records to return in each query.
+    - step: Defines the step or increment for pagination.
+
 ```json
 {
     "pagination": {
@@ -187,13 +193,17 @@ You can use the following mutation to load the material data from the CSV file i
 
 ### c) Query: Item Count & Avg, Min, Max Price for a Category
 
-   ```graphql
+    ```graphql
     query Query($pagination: PaginationInput) {
     categoryStats(pagination: $pagination)
     }
     ```
 
+
 ### With Variables:
+
+    - take: Defines the number of records to return in each query.
+    - step: Defines the step or increment for pagination.
 
 ```json
 {
