@@ -80,11 +80,17 @@ Before running the project, make sure you have the following tools installed:
 
 Here are a few example queries you can use in Apollo Server's playground to retrieve data from your database.
 
-### a. Query to Retrieve All Records from the Database
 
-You can use the following query to retrieve materials from the database. This query allows you to filter the results by manufacturer name and paginate them for optimized performance.
+### Mutation: `readCsvMaterials` (Load CSV Data)
 
-### Query: `Materials` (Retrieve All Data)
+You can use the following mutation to load the material data from the CSV file into the database.
+
+```graphql
+mutation Mutation {
+  readCsvMaterials
+}
+
+### a) Query: `Materials` (Retrieve All Data)
 
     ```graphql
     query Materials($input: FilterInput, $pagination: PaginationInput) {
@@ -128,10 +134,7 @@ You can use the following query to retrieve materials from the database. This qu
   }
 }
 
-
-### b. List of Parts by Manufacturer Name (with Wildcard)
-
-### Query: `Materials` (Retrieve All Data by manufacturer name)
+### b) Query: `Materials` (List of Parts by Manufacturer Name (with Wildcard))
 
     ```graphql
     query Materials($input: FilterInput, $pagination: PaginationInput) {
@@ -160,31 +163,27 @@ You can use the following query to retrieve materials from the database. This qu
             }
         }
     }
-    
+
 ### With Variables:
 
 ```json
 {
-  "pagination": {
-    "step": 1,
-    "order": "ASC",
-    "take": 20
-  },
-  "input": {
-    "manufacturerName": "POWER"  # This will match any manufacturer name containing "POWER"
-  }
+    "pagination": {
+        "step": 1,
+        "order": "ASC",
+        "take": 20
+    },
+    "input": {
+        "manufacturerName": "POWER"  # This will match any manufacturer name containing "POWER"
+    }
 }
 
-### 3. Item Count & Avg, Min, Max Price for a Category
+### b) Query: Item Count & Avg, Min, Max Price for a Category
 
-You can retrieve statistics about items in a category, including the item count, average price, minimum price, and maximum price, using the following query.
-
-### Query: `categoryStats` (Item Count & Price Stats for a Category)
-
-```graphql
-query Query($pagination: PaginationInput) {
-  categoryStats(pagination: $pagination)
-}
+   ```graphql
+    query Query($pagination: PaginationInput) {
+    categoryStats(pagination: $pagination)
+    }
 
 ### With Variables:
 
