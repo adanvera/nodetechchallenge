@@ -67,7 +67,6 @@ Before running the project, make sure you have the following tools installed:
 
   ```bash
     npm run start
-    ```
 
 7. **Use Queries and Mutations in Apollo Server**:
 
