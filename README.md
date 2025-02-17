@@ -71,6 +71,8 @@ Before running the project, make sure you have the following tools installed:
 
     This command will start your application, allowing you to interact with your database using Prisma Client. Ensure that you have completed the previous steps, such as generating the Prisma Client, before running this command.
 
+    Once the application is running, logs will be displayed based on the actions performed, helping you monitor the execution and debug if necessary.
+
 7. **Use Queries and Mutations in Apollo Server**:
 
     Once the application is running, open Apollo Server’s playground or GraphQL endpoint in your browser. The server should be accessible at the specified server and port, for example: http://localhost:8000
@@ -183,7 +185,7 @@ You can use the following mutation to load the material data from the CSV file i
 }
 ```
 
-### b) Query: Item Count & Avg, Min, Max Price for a Category
+### c) Query: Item Count & Avg, Min, Max Price for a Category
 
    ```graphql
     query Query($pagination: PaginationInput) {
