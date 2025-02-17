@@ -91,7 +91,7 @@ You can use the following mutation to load the material data from the CSV file i
     }
     ```
 
-### a ->>> Query: `Materials` (Retrieve All Data)
+### a) Query: `Materials` (Retrieve All Data)
 
     ```graphql
     query Materials($input: FilterInput, $pagination: PaginationInput) {
@@ -120,6 +120,7 @@ You can use the following mutation to load the material data from the CSV file i
             }
         }
     }
+    ```
 
 ### With Variables:
 
@@ -164,6 +165,7 @@ You can use the following mutation to load the material data from the CSV file i
             }
         }
     }
+    ```
 
 ### With Variables:
 
@@ -185,6 +187,7 @@ You can use the following mutation to load the material data from the CSV file i
     query Query($pagination: PaginationInput) {
     categoryStats(pagination: $pagination)
     }
+    ```
 
 ### With Variables:
 
@@ -196,3 +199,4 @@ You can use the following mutation to load the material data from the CSV file i
     "order": "ASC"
   }
 }
+
