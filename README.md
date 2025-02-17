@@ -135,6 +135,7 @@ You can use the following mutation to load the material data from the CSV file i
     "manufacturerName": ""
   }
 }
+```
 
 ### b) Query: `Materials` (List of Parts by Manufacturer Name (with Wildcard))
 
@@ -180,6 +181,7 @@ You can use the following mutation to load the material data from the CSV file i
         "manufacturerName": "POWER"  # This will match any manufacturer name containing "POWER"
     }
 }
+```
 
 ### b) Query: Item Count & Avg, Min, Max Price for a Category
 
@@ -199,4 +201,4 @@ You can use the following mutation to load the material data from the CSV file i
     "order": "ASC"
   }
 }
-
+```
