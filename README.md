@@ -85,12 +85,13 @@ Here are a few example queries you can use in Apollo Server's playground to retr
 
 You can use the following mutation to load the material data from the CSV file into the database.
 
-```graphql
-mutation Mutation {
-  readCsvMaterials
-}
+    ```graphql
+    mutation Mutation {
+    readCsvMaterials
+    }
+    ```
 
-### a) Query: `Materials` (Retrieve All Data)
+### a ->>> Query: `Materials` (Retrieve All Data)
 
     ```graphql
     query Materials($input: FilterInput, $pagination: PaginationInput) {
