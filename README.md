@@ -69,12 +69,12 @@ Before running the project, make sure you have the following tools installed:
     npm run start
     ```
 
-6. **Use Queries and Mutations in Apollo Server**:
+7. **Use Queries and Mutations in Apollo Server**:
 
-Once the application is running, open Apollo Server’s playground or GraphQL endpoint in your browser. The server should be accessible at the specified server and port, for example: http://localhost:8000
+    Once the application is running, open Apollo Server’s playground or GraphQL endpoint in your browser. The server should be accessible at the specified server and port, for example: http://localhost:8000
 
 
-## 6.1. Query Examples
+8. **Use Queries and Mutations in Apollo Server**:
 
 Here are a few example queries you can use in Apollo Server's playground to retrieve data from your database.
 
