@@ -6,5 +6,44 @@ generator client {
 datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
-  schemas  = ["public"]
+  schemas  = ["store"]
+}
+
+model categories {
+  id        Int         @id @default(autoincrement())
+  name      String      @unique @db.VarChar(100)
+  materials materials[]
+
+  @@schema("store")
+}
+
+model manufacturers {
+  id        Int         @id @default(autoincrement())
+  name      String      @unique @db.VarChar(255)
+  materials materials[]
+
+  @@schema("store")
+}
+
+model materials {
+  id                   Int            @id @default(autoincrement())
+  name                 String         @db.VarChar(255)
+  description          String
+  long_description     String?
+  customer_part_id     String?
+  manufacturer_id      Int?
+  manufacturer_part_id String?
+  category_id          Int?
+  unit_of_measure      String?        @db.VarChar(50)
+  unit_quantity        Decimal?       @db.Decimal
+  requested_quantity   Decimal?       @db.Decimal
+  requested_unit_price Decimal?       @db.Decimal(10, 2)
+  competitor_name      String?        @db.VarChar(255)
+  competitor_part_name String?        @db.VarChar(255)
+  competitor_part_id   String?        @db.VarChar(100)
+  categories           categories?    @relation(fields: [category_id], references: [id], onUpdate: NoAction)
+  manufacturers        manufacturers? @relation(fields: [manufacturer_id], references: [id], onUpdate: NoAction)
+
+  @@unique([name, manufacturer_part_id], map: "unique_material")
+  @@schema("store")
 }

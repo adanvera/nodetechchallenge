@@ -5,17 +5,17 @@ async function createPrsimaClient(log) {
     const prisma = new PrismaClient({
         log: [
             { emit: 'event', level: 'query' },
+            { emit: 'event', level: 'error' },
             { emit: 'event', level: 'info' },
             { emit: 'event', level: 'warn' },
-            { emit: 'event', level: 'error' }
-        ]
+        ],
     });
     try {
-        log.info('Connecting to the database...');
+        log.info('Connecting to postgres database');
         await prisma.$connect();
-        log.info('Connected to the database');
+        log.info('Connected to postgres database');
     } catch (error) {
-        log.error('There was an error initializing the Prisma Client: ', error);
+        log.error(`Error connecting to postgres database: ${error}`);
     }
     return prisma;
 }
@@ -29,6 +29,6 @@ module.exports = async log => {
             prismaClient,
         };
     } catch (error) {
-        log.error(error)
+        log.error(error);
     }
 }

@@ -1,6 +1,6 @@
 class RootDatasource {
-    constructor(pgCliente, log) {
-        this.pgCliente = pgCliente;
+    constructor(pgClient, log) {
+        this.pgClient = pgClient;
         this.log = log;
     }
 }

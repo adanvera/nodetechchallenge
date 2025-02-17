@@ -3,6 +3,17 @@ extend type Query {
     """
     Material list
     """
-    materials: String
+    materials(
+        input: FilterInput
+        pagination: PaginationInput
+    ): JSON
+
+    """
+    Material by category statis
+    """
+    categoryStats(
+        pagination: PaginationInput
+    ): JSON
+
 
 }

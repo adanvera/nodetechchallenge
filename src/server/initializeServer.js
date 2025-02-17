@@ -4,7 +4,8 @@ const resolvers = require('../resolvers');
 const typeDefs = require('../schema');
 const { startStandaloneServer } = require("@apollo/server/standalone");
 const { database } = require("../database");
-const initializeDatasources = require('./initializeDatasouces');
+const initializeDatasources = require('./initializeDatasources');
+const { stripAnsi } = require("../common");
 
 function createServer() {
     // IMPORTING NODE_ENV from .env file
@@ -15,6 +16,12 @@ function createServer() {
         typeDefs,
         resolvers,
         plugins: ['production'].includes(environment) ? [ApolloServerPluginLandingPageDisabled()] : [],
+        formatError: (error) => {
+            if (error.message) {
+                error.message = stripAnsi(error.message);
+            }
+            return error;
+        },
     })
 
     return server
@@ -27,8 +34,8 @@ class Server {
     }
 
     async start() {
-        this.logger.info('Starting connection to the server...');
-        const clients = database(this.logger);
+        this.logger.info('Coneccting to the server...');
+        const clients = await database(this.logger);
         const { url } = await startStandaloneServer(this.server, {
             context: async ({ req, res }) => {
                 return {
@@ -41,7 +48,7 @@ class Server {
         });
 
         this.url = url;
-        this.logger.info(`🚀 Server ready at: ${this.url}`);
+        this.logger.info(`🚀 Server ready at: ${url}`);
     }
 }
 
