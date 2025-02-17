@@ -1,0 +1,14 @@
+input PaginationInput {
+    """
+    Quantity of items to show in the list.
+    """
+    take: Int
+    """
+    Page position to show the list.
+    """
+    step: Int
+    """
+    Order of the list.
+    """
+    order: Order
+}
