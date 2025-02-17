@@ -65,8 +65,11 @@ Before running the project, make sure you have the following tools installed:
 
 6. **Start the Application**:
 
-  ```bash
+    ```bash
     npm run start
+    ```
+
+    This command will start your application, allowing you to interact with your database using Prisma Client. Ensure that you have completed the previous steps, such as generating the Prisma Client, before running this command.
 
 7. **Use Queries and Mutations in Apollo Server**:
 
